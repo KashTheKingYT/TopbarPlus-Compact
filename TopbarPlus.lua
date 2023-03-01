@@ -1,3 +1,25 @@
+--//////////////////////////////////
+
+--Load all dependencies
+
+loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Signal.lua'))() --Signal
+loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Maid.lua'))() --Maid
+loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/TopbarPlusGui.lua'))() --Gui
+
+_G.Themes = {} --Themes
+loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Themes/BlueGradient.lua'))() --Blue gradient theme
+loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Themes/Default.lua'))() --Default theme
+
+loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/VERSION'))() --Version
+loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/TopbarPlusReference.lua'))() --Reference
+loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/IconController.lua'))() --IconController
+
+--//////////////////////////////////
+
+--Everything past this point is the regular topbar plus with added modifications for it to be suitable for compact http use
+
+--************************************
+
 -- LOCAL
 local LocalizationService = game:GetService("LocalizationService")
 local tweenService = game:GetService("TweenService")
