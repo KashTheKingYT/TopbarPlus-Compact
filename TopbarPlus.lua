@@ -15,7 +15,7 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarP
 
 loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/VERSION'))() --Version
 loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/TopbarPlusReference.lua'))() --Reference
-loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/IconController.lua'))() --IconController
+loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/IconController.lua')) --IconController
 
 --//////////////////////////////////
 
