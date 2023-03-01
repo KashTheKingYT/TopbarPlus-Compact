@@ -2,10 +2,7 @@
 
 --Load all dependencies
 
-print(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Signal.lua'))
-print(loadstring)
-
-loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Signal.lua')) --Signal
+loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Signal.lua'))() --Signal
 loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Maid.lua'))() --Maid
 loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/TopbarPlusGui.lua'))() --Gui
 
