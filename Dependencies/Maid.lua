@@ -151,4 +151,4 @@ end
 Maid.destroy = Maid.doCleaning
 Maid.clean = Maid.doCleaning
 
-_G.Maid = Maid
+return Maid
