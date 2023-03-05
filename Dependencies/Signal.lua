@@ -1,54 +1,14 @@
---[=[
-	A class which holds data and methods for ScriptSignals.
-
-	@class ScriptSignal
-]=]
 local ScriptSignal = {}
 ScriptSignal.__index = ScriptSignal
 
---[=[
-	A class which holds data and methods for ScriptConnections.
-
-	@class ScriptConnection
-]=]
 local ScriptConnection = {}
 ScriptConnection.__index = ScriptConnection
 
---[=[
-	A boolean which determines if a ScriptConnection is active or not.
 
-	@prop Connected boolean
-	@within ScriptConnection
-
-	@readonly
-	@ignore
-]=]
-
-
-export type Class = typeof( setmetatable({
-	_active = true,
-	_head = nil :: ScriptConnectionNode?
-}, ScriptSignal) )
-
-export type ScriptConnection = typeof( setmetatable({
-	Connected = true,
-	_node = nil :: ScriptConnectionNode?
-}, ScriptConnection) )
-
-type ScriptConnectionNode = {
-	_signal: Class,
-	_connection: ScriptConnection?,
-	_handler: (...any) -> (),
-
-	_next: ScriptConnectionNode?,
-	_prev: ScriptConnectionNode?
-}
-
-
-local FreeThread: thread? = nil
+local FreeThread = nil
 
 local function RunHandlerInFreeThread(handler, ...)
-	local thread = FreeThread :: thread
+	local thread = FreeThread
 	FreeThread = nil
 
 	handler(...)
@@ -64,76 +24,25 @@ local function CreateFreeThread()
 	end
 end
 
---[=[
-	Creates a ScriptSignal object.
-
-	@return ScriptSignal
-	@ignore
-]=]
-function ScriptSignal.new(): Class
+function ScriptSignal.new()
 	return setmetatable({
 		_active = true,
 		_head = nil
 	}, ScriptSignal)
 end
 
---[=[
-	Returns a boolean determining if the object is a ScriptSignal.
-
-	```lua
-	local janitor = Janitor.new()
-	local signal = ScriptSignal.new()
-
-	ScriptSignal.Is(signal) -> true
-	ScriptSignal.Is(janitor) -> false
-	```
-
-	@param object any
-	@return boolean
-	@ignore
-]=]
-function ScriptSignal.Is(object): boolean
+function ScriptSignal.Is(object)
 	return typeof(object) == 'table'
 		and getmetatable(object) == ScriptSignal
 end
 
---[=[
-	Returns a boolean determing if a ScriptSignal object is active.
-
-	```lua
-	ScriptSignal:IsActive() -> true
-	ScriptSignal:Destroy()
-	ScriptSignal:IsActive() -> false
-	```
-
-	@return boolean
-	@ignore
-]=]
-function ScriptSignal:IsActive(): boolean
+function ScriptSignal:IsActive()
 	return self._active == true
 end
 
---[=[
-	Connects a handler to a ScriptSignal object.
-
-	```lua
-	ScriptSignal:Connect(function(text)
-		print(text)
-	end)
-
-	ScriptSignal:Fire("Something")
-	ScriptSignal:Fire("Something else")
-
-	-- "Something" and then "Something else" are printed
-	```
-
-	@param handler (...: any) -> ()
-	@return ScriptConnection
-	@ignore
-]=]
 function ScriptSignal:Connect(
-	handler: (...any) -> ()
-): ScriptConnection
+	handler
+)
 
 	assert(
 		typeof(handler) == 'function',
@@ -147,10 +56,10 @@ function ScriptSignal:Connect(
 		}, ScriptConnection)
 	end
 
-	local _head: ScriptConnectionNode? = self._head
+	local _head = self._head
 
-	local node: ScriptConnectionNode = {
-		_signal = self :: Class,
+	local node = {
+		_signal = self,
 		_connection = nil,
 		_handler = handler,
 
@@ -171,29 +80,11 @@ function ScriptSignal:Connect(
 
 	node._connection = connection
 
-	return connection :: ScriptConnection
+	return connection
 end
 
---[=[
-	Connects a handler to a ScriptSignal object, but only allows that
-	connection to run once. Any `:Fire` calls called afterwards won't trigger anything.
-
-	```lua
-	ScriptSignal:ConnectOnce(function()
-		print("Connection fired")
-	end)
-
-	ScriptSignal:Fire()
-	ScriptSignal:Fire()
-
-	-- "Connection fired" is only fired once
-	```
-
-	@param handler (...: any) -> ()
-	@ignore
-]=]
 function ScriptSignal:ConnectOnce(
-	handler: (...any) -> ()
+	handler
 )
 	assert(
 		typeof(handler) == 'function',
@@ -207,25 +98,7 @@ function ScriptSignal:ConnectOnce(
 	end)
 end
 
---[=[
-	Yields the thread until a `:Fire` call occurs, returns what the signal was fired with.
-
-	```lua
-	task.spawn(function()
-		print(
-			ScriptSignal:Wait()
-		)
-	end)
-
-	ScriptSignal:Fire("Arg", nil, 1, 2, 3, nil)
-	-- "Arg", nil, 1, 2, 3, nil are printed
-	```
-
-	@yields
-	@return ...any
-	@ignore
-]=]
-function ScriptSignal:Wait(): (...any)
+function ScriptSignal:Wait()
 	local thread do
 		thread = coroutine.running()
 
@@ -239,24 +112,8 @@ function ScriptSignal:Wait(): (...any)
 	return coroutine.yield()
 end
 
---[=[
-	Fires a ScriptSignal object with the arguments passed.
-
-	```lua
-	ScriptSignal:Connect(function(text)
-		print(text)
-	end)
-
-	ScriptSignal:Fire("Some Text...")
-
-	-- "Some Text..." is printed twice
-	```
-
-	@param ... any
-	@ignore
-]=]
 function ScriptSignal:Fire(...: any)
-	local node: ScriptConnectionNode? = self._head
+	local node = self._head
 	while node ~= nil do
 		if node._connection ~= nil then
 			if FreeThread == nil then
@@ -273,21 +130,8 @@ function ScriptSignal:Fire(...: any)
 	end
 end
 
---[=[
-	Disconnects all connections from a ScriptSignal object without making it unusable.
-
-	```lua
-	local connection = ScriptSignal:Connect(function() end)
-
-	connection.Connected -> true
-	ScriptSignal:DisconnectAll()
-	connection.Connected -> false
-	```
-
-	@ignore
-]=]
 function ScriptSignal:DisconnectAll()
-	local node: ScriptConnectionNode? = self._head
+	local node = self._head
 	while node ~= nil do
 		local _connection = node._connection
 
@@ -303,18 +147,6 @@ function ScriptSignal:DisconnectAll()
 	self._head = nil
 end
 
---[=[
-	Destroys a ScriptSignal object, disconnecting all connections and making it unusable.
-
-	```lua
-	ScriptSignal:Destroy()
-
-	local connection = ScriptSignal:Connect(function() end)
-	connection.Connected -> false
-	```
-
-	@ignore
-]=]
 function ScriptSignal:Destroy()
 	if self._active ~= true then
 		return
@@ -324,20 +156,6 @@ function ScriptSignal:Destroy()
 	self._active = false
 end
 
---[=[
-	Disconnects a connection, any `:Fire` calls from now on will not
-	invoke this connection's handler.
-
-	```lua
-	local connection = ScriptSignal:Connect(function() end)
-
-	connection.Connected -> true
-	connection:Disconnect()
-	connection.Connected -> false
-	```
-
-	@ignore
-]=]
 function ScriptConnection:Disconnect()
 	if self.Connected ~= true then
 		return
@@ -345,7 +163,7 @@ function ScriptConnection:Disconnect()
 
 	self.Connected = false
 
-	local _node: ScriptConnectionNode = self._node
+	local _node = self._node
 	local _prev = _node._prev
 	local _next = _node._next
 
@@ -377,4 +195,4 @@ ScriptSignal.connect = ScriptSignal.Connect
 ScriptSignal.wait = ScriptSignal.Wait
 ScriptSignal.fire = ScriptSignal.Fire
 
-return Signal
+return ScriptSignal
