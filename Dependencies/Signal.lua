@@ -1,3 +1,4 @@
+--!non-strict
 local ScriptSignal = {}
 ScriptSignal.__index = ScriptSignal
 
