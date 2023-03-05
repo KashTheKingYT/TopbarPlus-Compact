@@ -18,7 +18,12 @@ local ___loaded, ___err = pcall(function()
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/IconController.lua')) --IconController
 end)
 
-print(___loaded and "Successfully loaded all modules" or "Couldn't load all modules! Re-execute script."..___err)
+if ___loaded then
+	print("Successfully loaded all modules, TopbarPlus will now finish loading")	
+else
+	print("TopbarPlus modules did not successfully load. Please re-execute the script or check for any mistakes")
+	return
+end
 
 --//////////////////////////////////
 
