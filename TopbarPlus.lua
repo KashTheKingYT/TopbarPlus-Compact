@@ -5,11 +5,11 @@
 print("Loading TopbarPlus Compact Edition")
 
 local ___loaded, ___err = pcall(function()
+	_G.Themes = {} --Themes
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Signal.lua'))() --Signal
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Maid.lua'))() --Maid
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/TopbarPlusGui.lua'))() --Gui
 
-	_G.Themes = {} --Themes
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Themes/BlueGradient.lua'))() --Blue gradient theme
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Themes/Default.lua'))() --Default theme
 
