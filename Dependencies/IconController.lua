@@ -11,6 +11,9 @@ local voiceChatService = game:GetService("VoiceChatService")
 local localizationService = game:GetService("LocalizationService")
 
 local IconModule = _G.Icon
+
+repeat wait() until _G.Icon
+
 local Signal = _G.signal
 
 local IconController = {}
