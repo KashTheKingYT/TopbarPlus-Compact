@@ -4,26 +4,16 @@
 
 print("Loading TopbarPlus Compact Edition")
 
-local ___loaded, ___err = pcall(function()
-	_G.Themes = {} --Themes
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Signal.lua'))() --Signal
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Maid.lua'))() --Maid
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/TopbarPlusGui.lua'))() --Gui
-
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Themes/BlueGradient.lua'))() --Blue gradient theme
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Themes/Default.lua'))() --Default theme
-
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/VERSION'))() --Version
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/TopbarPlusReference.lua'))() --Reference
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/IconController.lua')) --IconController
-end)
-
-if ___loaded then
-	print("Successfully loaded all modules, TopbarPlus will now finish loading")	
-else
-	print("TopbarPlus modules did not successfully load. Please re-execute the script or check for any mistakes")
-	return
-end
+local modules = {
+    signal = "https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Signal.lua", -- Signal
+    maid = "https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Maid.lua", -- Maid
+    gui = "https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/TopbarPlusGui.lua", -- Gui
+    blue_gradient = "https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Themes/BlueGradient.lua", -- Blue gradient theme
+    default_gradient = "https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Themes/Default.lua", -- Default theme
+    version = "https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/VERSION", -- Version
+    reference = "https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/TopbarPlusReference.lua", -- Reference
+    icon_controller = "https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/IconController.lua", -- IconController
+}
 
 --//////////////////////////////////
 
@@ -48,11 +38,14 @@ local localPlayer = playersService.LocalPlayer
 local Icon = {}
 Icon.__index = Icon
 
-local IconController = _G.IconController
-local Signal = _G.Signal
-local Maid = _G.Maid
-local TopbarPlusGui = _G.TopbarPlusGui
-local Themes = _G.Themes
+local IconController = loadstring(modules.icon_controller)()
+local Signal = loadstring(modules.signal)()
+local Maid = loadstring(modules.maid)()
+local TopbarPlusGui = loadstring(modules.gui)()
+local Themes = {
+    Default = loadstring(modules.default_gradient)(),
+    BlueGradient = loadstring(modules.blue_gradient)()
+}
 
 local activeItems = TopbarPlusGui.ActiveItems
 local topbarContainer = TopbarPlusGui.TopbarContainer
@@ -2171,4 +2164,4 @@ function Icon:destroy()
 end
 Icon.Destroy = Icon.destroy
 
-_G.TopbarPlus = Icon
+return Icon
