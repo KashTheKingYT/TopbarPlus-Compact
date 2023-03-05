@@ -11,6 +11,7 @@ local voiceChatService = game:GetService("VoiceChatService")
 local localizationService = game:GetService("LocalizationService")
 
 local IconModule = Icon
+assert(Icon, "No icon module")
 
 local IconController = {}
 
