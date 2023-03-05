@@ -2,17 +2,23 @@
 
 --Load all dependencies
 
-loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Signal.lua'))() --Signal
-loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Maid.lua'))() --Maid
-loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/TopbarPlusGui.lua'))() --Gui
+print("Loading TopbarPlus Compact Edition")
 
-_G.Themes = {} --Themes
-loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Themes/BlueGradient.lua'))() --Blue gradient theme
-loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Themes/Default.lua'))() --Default theme
+local ___loaded, ___err = pcall(function()
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Signal.lua'))() --Signal
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Maid.lua'))() --Maid
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/TopbarPlusGui.lua'))() --Gui
 
-loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/VERSION'))() --Version
-loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/TopbarPlusReference.lua'))() --Reference
-loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/IconController.lua')) --IconController
+	_G.Themes = {} --Themes
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Themes/BlueGradient.lua'))() --Blue gradient theme
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/Themes/Default.lua'))() --Default theme
+
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/VERSION'))() --Version
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/TopbarPlusReference.lua'))() --Reference
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/KashTheKingYT/TopbarPlus-Compact/main/Dependencies/IconController.lua')) --IconController
+end)
+
+print(___loaded and "Successfully loaded all modules" or "Couldn't load all modules! Re-execute script."..___err)
 
 --//////////////////////////////////
 
