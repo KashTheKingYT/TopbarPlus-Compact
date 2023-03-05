@@ -2,7 +2,7 @@
 local selectedColor = Color3.fromRGB(0, 170, 255)
 local selectedColorDarker = Color3.fromRGB(0, 120, 180)
 local neutralColor = Color3.fromRGB(255, 255, 255)
-_G.Themes.BlueGradient = {
+return {
     
     -- Settings which describe how an item behaves or transitions between states
     action =  {
