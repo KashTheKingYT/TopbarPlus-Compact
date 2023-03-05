@@ -20,7 +20,7 @@ local newIcon = Icon.new()
 ```
 --]]
 
-_G.Themes.Default = {
+return {
     
     -- Settings which describe how an item behaves or transitions between states
     action =  {
