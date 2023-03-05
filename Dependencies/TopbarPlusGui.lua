@@ -350,4 +350,4 @@ local localPlayer = game:GetService("Players").LocalPlayer
 local playerGui = localPlayer.PlayerGui
 topbarPlusGui.Parent = playerGui
 
-_G.TopbarPlusGui = topbarPlusGui
+return topbarPlusGui
