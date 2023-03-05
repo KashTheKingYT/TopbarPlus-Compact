@@ -1178,4 +1178,4 @@ task.spawn(function()
 end)
 
 
-_G.IconController = IconController
+return IconController
