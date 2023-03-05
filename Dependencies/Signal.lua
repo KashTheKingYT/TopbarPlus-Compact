@@ -377,4 +377,4 @@ ScriptSignal.connect = ScriptSignal.Connect
 ScriptSignal.wait = ScriptSignal.Wait
 ScriptSignal.fire = ScriptSignal.Fire
 
-_G.Signal = ScriptSignal
+return Signal
