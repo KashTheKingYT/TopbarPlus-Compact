@@ -26,4 +26,4 @@ function TopbarPlusReference.getObject()
     return false
 end
 
-_G.TopbarPlusReference = TopbarPlusReference
+return TopbarPlusReference
