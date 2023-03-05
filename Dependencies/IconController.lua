@@ -99,7 +99,7 @@ alignmentDetails["right"] = {
 		local offset = IconController.rightOffset
 		local localCharacter  = localPlayer.Character
 		local localHumanoid = localCharacter and localCharacter:FindFirstChild("Humanoid")
-		local isR6 = if localHumanoid and localHumanoid.RigType == Enum.HumanoidRigType.R6 then true else false -- Even though the EmotesMenu doesn't appear for R6 players, it will still register as enabled unless manually disabled
+		local isR6 = localHumanoid and localHumanoid.RigType == Enum.HumanoidRigType.R6 and true or false -- Even though the EmotesMenu doesn't appear for R6 players, it will still register as enabled unless manually disabled
 		if (checkTopbarEnabled() or VRService.VREnabled) and (starterGui:GetCoreGuiEnabled(Enum.CoreGuiType.PlayerList) or starterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Backpack) or (not isR6 and starterGui:GetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu))) then
 			offset += 48
 		end
