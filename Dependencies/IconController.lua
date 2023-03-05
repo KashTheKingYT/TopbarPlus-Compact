@@ -10,12 +10,12 @@ local VRService = game:GetService("VRService")
 local voiceChatService = game:GetService("VoiceChatService")
 local localizationService = game:GetService("LocalizationService")
 
-local IconModule = Icon
-assert(Icon, "No icon module")
+local IconModule = _G.Icon
+local Signal = _G.signal
 
 local IconController = {}
 
-local TopbarPlusGui = _G.TopbarPlusGui
+local TopbarPlusGui = _G.gui
 local topbarIcons = {}
 local forceTopbarDisabled = false
 local menuOpen
