@@ -10,10 +10,10 @@ local VRService = game:GetService("VRService")
 local voiceChatService = game:GetService("VoiceChatService")
 local localizationService = game:GetService("LocalizationService")
 
-local IconModule = _G.TopbarPlus
+local IconModule = Icon
 
 local IconController = {}
-local Signal = _G.Signal
+
 local TopbarPlusGui = _G.TopbarPlusGui
 local topbarIcons = {}
 local forceTopbarDisabled = false
@@ -813,7 +813,6 @@ function IconController.setupHealthbar()
 	-- Create a fake healthbar icon to mimic the core health gui
 	task.defer(function()
 		runService.Heartbeat:Wait()
-		local Icon = _G.TopbarPlus
 
 		Icon.new()
 			:setProperty("internalIcon", true)
